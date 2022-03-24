@@ -3,19 +3,27 @@ import { Input } from "antd";
 import "antd/dist/antd.css";
 import styled from "styled-components";
 
+import { DataType } from "../type/types";
+
 const Search = styled(Input.Search)`
-  width: 30%;
-  display: block;
+  max-width: 500px;
+  width: 70%;
+  display: flex;
 `;
 
-export default function SearchFunction(props) {
+interface Props {
+  resource: DataType[];
+  onChange: (value: DataType[]) => void;
+}
+
+export default function SearchFunction({ resource, onChange }: Props) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const searchArray = () => {
-    const results = props.resource.filter((value) => {
-      return value.name.toLowerCase().includes(searchTerm); //If find the result, it going to return true
+    const results = resource.filter((value) => {
+      return value.name.toLowerCase().includes(searchTerm);
     });
-    props.onChange(results);
+    onChange(results);
   };
 
   useEffect(() => {
